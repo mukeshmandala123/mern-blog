@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -15,15 +16,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </React.StrictMode>
 );
-function App() {
-  return (
-    <div className="container mt-5">
-      <h1 className="text-primary">Bootstrap is Working! 🎉</h1>
-      <button className="btn btn-success mt-3">
-        Click Me
-      </button>
-    </div>
-  );
-}
-
-export default App;
