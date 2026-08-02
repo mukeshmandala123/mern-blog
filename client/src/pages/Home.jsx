@@ -18,34 +18,64 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>All Posts</h1>
+    <div className="container mt-5">
+      <h1 className="text-center fw-bold mb-5">📝 All Blog Posts</h1>
 
       {posts.length === 0 ? (
-        <p>No posts found.</p>
+        <div className="alert alert-info text-center">
+          No posts found.
+        </div>
       ) : (
-        posts.map((post) => (
-          <div
-            key={post._id}
-            style={{
-              border: "1px solid #ccc",
-              marginBottom: "20px",
-              padding: "15px",
-            }}
-          >
-            <h2>{post.title}</h2>
+        <div className="row">
+          {posts.map((post) => (
+            <div className="col-md-6 col-lg-4 mb-4" key={post._id}>
+              <div className="card h-100 shadow-lg border-0 rounded-4">
 
-            <p>{post.content}</p>
+                <div className="card-body">
 
-            <p>
-              <strong>Author:</strong> {post.author.username}
-            </p>
+                  <h3 className="card-title fw-bold">
+                    {post.title}
+                  </h3>
 
-            <p>
-              <strong>Tags:</strong> {post.tags.join(", ")}
-            </p>
-          </div>
-        ))
+                  <p className="card-text text-muted">
+                    {post.content}
+                  </p>
+
+                  <hr />
+
+                  <p>
+                    <strong>👤 Author:</strong>{" "}
+                    {post.author?.username || "Unknown"}
+                  </p>
+
+                  <div className="mb-3">
+                    {post.tags?.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="badge bg-primary me-2"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+
+                  <small className="text-muted">
+                    {new Date(post.createdAt).toLocaleDateString()}
+                  </small>
+
+                  <button className="btn btn-outline-primary btn-sm">
+                    Read More
+                  </button>
+
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

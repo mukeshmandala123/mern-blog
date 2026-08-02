@@ -1,20 +1,74 @@
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+function Navbar() {
+  const token = localStorage.getItem("token");
+
   return (
-    <nav
-      style={{
-        padding: "15px",
-        display: "flex",
-        gap: "20px",
-        borderBottom: "1px solid #ccc",
-      }}
-    >
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Signup</Link>
-      <Link to="/dashboard">Dashboard</Link>
-      <Link to="/create">Create Post</Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+      <div className="container">
+        <Link className="navbar-brand fw-bold" to="/">
+          📝 MERN Blog
+        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+
+            {!token ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">
+                    Signup
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/create">
+                    Create Post
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <button
+                    className="btn btn-danger ms-2"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      window.location.href = "/";
+                    }}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            )}
+
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }
+
+export default Navbar;
